@@ -10,6 +10,13 @@ export const FairPicker = {
     return users;
   },
 
+	shuffleBuffer: function(buffer) {
+		return buffer
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+	},
+
   constructPickingBuffer: function (users) {
     let buffer = [];
 		const data = loadDB();
@@ -25,7 +32,7 @@ export const FairPicker = {
 
 		("final buffer", buffer);
 
-    return buffer;
+    return this.shuffleBuffer(buffer);
   },
 
   getIndex(buffer) {
