@@ -1,38 +1,53 @@
-import { loadDB, updateUser } from "./db-loader.js";
+import { loadDB, makeSureUsersExists, updateUser } from "./db-loader.js";
 
 export const FairPicker = {
+  filterUsers: function (channelUsers) {
+    let users = [];
+    channelUsers.members.forEach((user) => {
+      if (!user.is_bot && user.name !== "slackbot") users.push(user.name);
+    });
 
-	getUsers: function() {
-		return loadDB().users;
-	},
+    return users;
+  },
 
-	constructPickingBuffer: function() {
-		const users = this.getUsers();
-		let buffer = [];
+  constructPickingBuffer: function (users) {
+    let buffer = [];
+		const data = loadDB();
 
-		users.forEach(user => {
-			for (var i = 0; i < user.weight; i++) {
-				buffer.push(user)
-			}
-		});
+		("buffer data", data);
 
-		return buffer;
-	},
+    users.forEach((user) => {
+			("creating buffer for", user, data[user]);
+      for (var i = 0; i < data[user].weight; i++) {
+        buffer.push(user);
+      }
+    });
 
-	pickUser: function() {
-		const buffer = this.constructPickingBuffer();
+		("final buffer", buffer);
 
-		if (buffer.length == 0) {
-      return {name: "[NO USERS PRESENT... use `/add-user <USER>` to add users]"};
+    return buffer;
+  },
+
+  getIndex(buffer) {
+    return Math.max(
+      Math.min(parseInt(Math.random() * buffer.length), buffer.length - 1),
+      0
+    );
+  },
+
+  pickUser: function (channelUsers) {
+    const users = this.filterUsers(channelUsers);
+		makeSureUsersExists(users);
+    const buffer = this.constructPickingBuffer(users);
+
+    if (buffer.length == 0) {
+      return '';
     }
 
-		const index = parseInt(Math.random() * buffer.length);
-		const user = buffer[index];
+    const index = this.getIndex(buffer);
+    const user = buffer[index];
 
-		updateUser(user.name)
-		return user
-	}
-}
-
-
-
+    updateUser(user);
+    return user;
+  },
+};

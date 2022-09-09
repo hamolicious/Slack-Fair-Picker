@@ -17,32 +17,35 @@ export function loadDB() {
 	return data;
 }
 
-export function addUser(user) {
-  let raw = readFileSync(process.env.DB_PATH);
-  let data = JSON.parse(raw);
-	data.users.push(user);
-
+export function saveDB(data) {
 	writeFileSync(process.env.DB_PATH, JSON.stringify(data));
 }
 
-export function updateUser(username) {
-  let raw = readFileSync(process.env.DB_PATH);
-  let data = JSON.parse(raw);
-
-	for (let i = 0; i < data.users.length; i++) {
-		if (data.users[i].name == username) {
-			data.users[i].allTimePicks++;
-			data.users[i].weight -= parseInt(process.env.WEIGHT_FALL_OFF);
-
-			if (data.users[i].weight <= 0) {
-				data.users[i].weight = 100;
-			}
-
-			break;
+export function makeSureUsersExists(usernames) {
+	const data = loadDB();
+	usernames.forEach(username => {
+		if (!data[username]){
+			data[username] = {
+        picked: 0,
+        allTimePicked: 0,
+        weight: parseInt(process.env.DEFAULT_WEIGHT)
+      };
 		}
-	}
+	});
+	saveDB(data);
+}
 
-  writeFileSync(process.env.DB_PATH, JSON.stringify(data));
+export function updateUser(username) {
+	const data = loadDB();
+
+	data[username].picked++;
+	data[username].allTimePicked++;
+	data[username].weight -= parseInt(process.env.WEIGHT_FALL_OFF);
+
+	if (data[username].weight <= 0)
+		data[username].weight = parseInt(process.env.DEFAULT_WEIGHT);
+
+	saveDB(data);
 }
 
 

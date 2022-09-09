@@ -2,7 +2,7 @@ import pkg from "@slack/bolt";
 const { App } = pkg;
 import { FairPicker } from "./src/fair-picker.js";
 import dotenv from "dotenv";
-import { addUser } from "./src/db-loader.js";
+import { getUserID } from "./src/db-loader.js";
 
 
 dotenv.config();
@@ -19,46 +19,12 @@ app.command("/pick", async ({ command, ack, say }) => {
   try {
     await ack();
 
-		const user = FairPicker.pickUser();
-    say(`User ${user.name} has been picked for task: ${command.text}`);
+		const channelUsers = await app.client.users.list();
+		const user = FairPicker.pickUser(channelUsers);
+
+		say(`User <@${user}> has been picked for task: ${command.text}`);
 
 	} catch (error) {
-    console.log("err");
-    console.error(error);
-  }
-});
-
-app.command("/add-user", async ({ command, ack, say }) => {
-  try {
-    await ack();
-
-		const newUser = {
-      name: command.text,
-      weight: parseInt(process.env.DEFAULT_WEIGHT),
-      allTimePicks: 0,
-    };
-		addUser(newUser)
-		say(`User ${newUser.name} has been added to the list`)
-
-	} catch (error) {
-    console.log("err");
-    console.error(error);
-  }
-});
-
-app.command("/list-users", async ({ command, ack, say }) => {
-  try {
-    await ack();
-
-		const users = FairPicker.getUsers();
-		let str = '';
-		users.forEach(user => {
-			str += `\n\t${user.name}`;
-		});
-		say(`Current user list: ${str}`)
-
-
-  } catch (error) {
     console.log("err");
     console.error(error);
   }
