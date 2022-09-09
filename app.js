@@ -15,7 +15,7 @@ const app = new App({
   appToken: process.env.APP_TOKEN,
 });
 
-app.command("/picka", async ({ command, ack, say }) => {
+app.command("/pick", async ({ command, ack, say }) => {
   try {
     await ack();
 
