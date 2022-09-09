@@ -5,7 +5,7 @@
   "main": "index.js",
 	"type": "module",
   "scripts": {
-    "test": "node run-fairness-test.js",
+    "test": "node test/run-fairness-test.js",
 		"dev": "nodemon app.js"
   },
   "keywords": [],

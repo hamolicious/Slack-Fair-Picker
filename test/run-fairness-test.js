@@ -1,6 +1,6 @@
-import { FairPicker } from "./fair-picker.js";
+import { FairPicker } from "../src/fair-picker.js";
 import { writeFileSync } from "fs";
-import { loadDB } from "./db-loader.js";
+import { loadDB } from "../src/db-loader.js";
 
 let data = {};
 const itterations = 10000;
@@ -25,5 +25,5 @@ for (var i = 0; i < itterations; i++) {
 	console.log(`Progress ${parseInt((i / itterations) * 100)}%`)
 }
 
-writeFileSync('out.json', JSON.stringify(data))
+writeFileSync('test/out.json', JSON.stringify(data))
 

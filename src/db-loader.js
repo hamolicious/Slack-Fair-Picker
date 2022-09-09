@@ -5,28 +5,28 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export function loadDB() {
-	if (!existsSync("db.json")) {
-		writeFileSync("db.json", JSON.stringify({
+	if (!existsSync(process.env.DB_PATH)) {
+		writeFileSync(process.env.DB_PATH, JSON.stringify({
 			users: []
 		}));
 	}
 
-  let raw = readFileSync("db.json");
+  let raw = readFileSync(process.env.DB_PATH);
   let data = JSON.parse(raw);
 
 	return data;
 }
 
 export function addUser(user) {
-  let raw = readFileSync("db.json");
+  let raw = readFileSync(process.env.DB_PATH);
   let data = JSON.parse(raw);
 	data.users.push(user);
 
-	writeFileSync("db.json", JSON.stringify(data));
+	writeFileSync(process.env.DB_PATH, JSON.stringify(data));
 }
 
 export function updateUser(username) {
-  let raw = readFileSync("db.json");
+  let raw = readFileSync(process.env.DB_PATH);
   let data = JSON.parse(raw);
 
 	for (let i = 0; i < data.users.length; i++) {
@@ -42,7 +42,7 @@ export function updateUser(username) {
 		}
 	}
 
-  writeFileSync("db.json", JSON.stringify(data));
+  writeFileSync(process.env.DB_PATH, JSON.stringify(data));
 }
 
 
