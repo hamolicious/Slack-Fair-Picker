@@ -1,0 +1,19 @@
+{
+  "name": "fairpicker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+	"type": "module",
+  "scripts": {
+    "test": "node run-fairness-test.js",
+		"dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "hamolicious <hamolicious@protonmail.com> (https://github.com/hamolicious)",
+  "license": "WTFPL",
+  "dependencies": {
+    "@slack/bolt": "^3.12.1",
+    "dotenv": "^16.0.2",
+    "nodemon": "^2.0.19"
+  }
+}

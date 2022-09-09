@@ -1,0 +1,39 @@
+{
+	"users": [
+		{
+			"name": "user-1",
+			"weight": 100,
+			"allTimePicks": 0
+		},
+		{
+			"name": "user-2",
+			"weight": 100,
+			"allTimePicks": 0
+		},
+		{
+			"name": "user-3",
+			"weight": 100,
+			"allTimePicks": 0
+		},
+		{
+			"name": "user-4",
+			"weight": 100,
+			"allTimePicks": 0
+		},
+		{
+			"name": "user-5",
+			"weight": 100,
+			"allTimePicks": 0
+		},
+		{
+			"name": "user-6",
+			"weight": 100,
+			"allTimePicks": 0
+		},
+		{
+			"name": "user-7",
+			"weight": 100,
+			"allTimePicks": 0
+		}
+	]
+}

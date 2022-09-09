@@ -1,0 +1,30 @@
+{
+	"user-1": {
+		"picks": 1443,
+		"consec": 301
+	},
+	"user-2": {
+		"picks": 1410,
+		"consec": 300
+	},
+	"user-3": {
+		"picks": 1409,
+		"consec": 279
+	},
+	"user-4": {
+		"picks": 1475,
+		"consec": 325
+	},
+	"user-5": {
+		"picks": 1401,
+		"consec": 282
+	},
+	"user-6": {
+		"picks": 1427,
+		"consec": 295
+	},
+	"user-7": {
+		"picks": 1435,
+		"consec": 318
+	}
+}
