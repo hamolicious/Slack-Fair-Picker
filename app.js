@@ -2,8 +2,6 @@ import pkg from "@slack/bolt";
 const { App } = pkg;
 import { FairPicker } from "./src/fair-picker.js";
 import dotenv from "dotenv";
-import { getUserID } from "./src/db-loader.js";
-
 
 dotenv.config();
 
